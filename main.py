@@ -3,8 +3,9 @@ from aiogram import Bot, Dispatcher, executor, types
 import logging
 import asyncio
 import ajaxparser
+from config import BOT_TOKEN
 from sqlworker import SQLighter
-bot_obj=Bot(token="")
+bot_obj=Bot(token=BOT_TOKEN)
 bot=Dispatcher(bot_obj)
 db = SQLighter('db.db')
 clear_markup=types.ReplyKeyboardMarkup(resize_keyboard=True).add(types.KeyboardButton(" "))
@@ -76,7 +77,9 @@ async def get_text_messages(message):
             db.update_status(message.chat.id,True)
             await message.answer("Введите ваш регистрационный номер:",reply_markup=clear_markup)
         elif message.text == "/help":
-            await message.answer("Используй клваиатуру... BAKA!👺")
+            await message.answer("Расскажу о метсте в рейниге или про ФИИТ /fiit.👺 Используй клваиатуру для управления.")
+        elif message.text == "/fiit":
+            await message.answer("ФИИТ - крута. @drannik_m рекомендует. https://fiit-urfu.ru")
         elif message.text == "Узнать своё положение в таблице":
             if not db.user_exists(message.chat.id):
                 db.add_user(message.chat.id,message.chat.username)
