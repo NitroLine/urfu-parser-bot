@@ -65,7 +65,7 @@ async def init_bot(message: types.Message):
         name = message.chat.username
     if not db.user_exists(message.chat.id):
         db.add_user(message.chat.id,name)
-    await message.answer("Привет 👋, я бот проверяющий ваше положение в конкурсном списке УРФУ.",reply_markup=markup)
+    await message.answer("Привет 👋, я бот проверяющий ваше положение в конкурсном списке УРФУ среди тех, кто подал согласие.",reply_markup=markup)
 
 @bot.message_handler(content_types=['text'])
 async def get_text_messages(message):
@@ -101,7 +101,7 @@ async def get_text_messages(message):
                     db.update_status(message.chat.id, False)
                     await message.answer( "👌 Ок.",reply_markup=menu)
                 else:
-                    await message.answer( "❌ Невалидный номер,попробуйте ещё раз, разделяя слова пробелом.")
+                    await message.answer( "❌ Невалидный номер,попробуйте ещё раз.")
             else:
                 await message.answer( "Я тебя не понимаю 😥. Используй клавиутру для управления")
 
