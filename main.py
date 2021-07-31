@@ -1,10 +1,9 @@
-
 from aiogram import Bot, Dispatcher, executor, types
 import logging
-import asyncio
-import ajaxparser
+import notajaxparser as parser
 from config import BOT_TOKEN
 from sqlworker import SQLighter
+
 bot_obj=Bot(token=BOT_TOKEN)
 bot=Dispatcher(bot_obj)
 db = SQLighter('db.db')
@@ -24,7 +23,6 @@ def generate_inline_selector():
     inline_btn_2 = types.InlineKeyboardButton('Институт новых материалов и технологий', callback_data='inmt')
     inline_btn_3 = types.InlineKeyboardButton('Институт радиоэлектроники и информационных технологий - РтФ', callback_data='rtf')
     inline_btn_4 = types.InlineKeyboardButton('Институт строительства и архитектуры', callback_data='isa')
-    inline_btn_5 = types.InlineKeyboardButton('Институт технологий открытого образования', callback_data='itoo')
     inline_btn_6 = types.InlineKeyboardButton('Институт физической культуры, спорта и молодежной политики', callback_data='ipe')
     inline_btn_7 = types.InlineKeyboardButton('Институт фундаментального образования', callback_data='ifo')
     inline_btn_8 = types.InlineKeyboardButton('Институт экономики и управления', callback_data='ieu')
@@ -36,7 +34,6 @@ def generate_inline_selector():
     inline_kb.add(inline_btn_2)
     inline_kb.add(inline_btn_3)
     inline_kb.add(inline_btn_4)
-    inline_kb.add(inline_btn_5)
     inline_kb.add(inline_btn_6)
     inline_kb.add(inline_btn_7)
     inline_kb.add(inline_btn_8)
@@ -91,7 +88,7 @@ async def get_text_messages(message):
                 await message.answer("Для начала измините номер. ↘️")
             else:
                 await message.answer("🌐 Ищем вас в списках...")
-                await message.answer(ajaxparser.get_abit_status(user[2],user[3]))
+                await message.answer(parser.get_abit_status(user[2],user[3]))
         elif message.text == "Выбрать институт":
             await message.answer("На какой институт вы подали согласие?", reply_markup=inline_kb)
         else:
@@ -122,8 +119,6 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
         db.update_inst(callback_query.message.chat.id,"Институт радиоэлектроники и информационных технологий - РтФ")
     elif code=="isa":
         db.update_inst(callback_query.message.chat.id,"Институт строительства и архитектуры")
-    elif code=="itoo":
-        db.update_inst(callback_query.message.chat.id,"Институт технологий открытого образования")
     elif code=="ipe":
         db.update_inst(callback_query.message.chat.id,"Институт физической культуры, спорта и молодежной политики")
     elif code=="ifo":
@@ -138,8 +133,6 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
         db.update_inst(callback_query.message.chat.id,"Физико-технологический институт")
     elif code=="xti":
         db.update_inst(callback_query.message.chat.id,"Химико-технологический институт")
-
-
 
     await bot_obj.edit_message_text(chat_id=callback_query.message.chat.id,message_id=callback_query.message.message_id,reply_markup=None,text="👌 Выбор зачтён!")
     await bot_obj.answer_callback_query(callback_query.id)
