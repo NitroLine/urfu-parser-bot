@@ -42,6 +42,8 @@ def generate_inline_selector():
     inline_kb.add(inline_btn_11)
     inline_kb.add(inline_btn_12)
     return inline_kb
+
+
 inline_kb=generate_inline_selector()
 
 
@@ -104,6 +106,7 @@ async def get_text_messages(message):
                     await message.answer( "❌ Невалидный номер,попробуйте ещё раз.")
             else:
                 await message.answer( "Я тебя не понимаю 😥. Используй клавиутру для управления")
+
 
 @bot.callback_query_handler()
 async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
