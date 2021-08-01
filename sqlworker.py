@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class SQLighter:
 
     def __init__(self, database):
@@ -12,6 +13,7 @@ class SQLighter:
         with self.connection:
             result = self.cursor.execute('SELECT * FROM `users` WHERE `user_id` = ?', (user_id,)).fetchall()
             return bool(len(result))
+
     def get_user(self, user_id):
         """Проверяем, есть ли уже юзер в базе"""
         with self.connection:
@@ -21,17 +23,17 @@ class SQLighter:
     def add_user(self, user_id, username):
         """Добавляем нового подписчика"""
         with self.connection:
-            return self.cursor.execute("INSERT INTO `users` (`user_id`, `username`) VALUES(?,?)", (user_id,username))
+            return self.cursor.execute("INSERT INTO `users` (`user_id`, `username`) VALUES(?,?)", (user_id, username))
 
     def update_fio(self, user_id, fio):
         """Обновляем статус подписки пользователя"""
         with self.connection:
             return self.cursor.execute("UPDATE `users` SET `fio` = ? WHERE `user_id` = ?", (fio, user_id))
+
     def update_status(self, user_id, status=False):
         """Обновляем статус подписки пользователя"""
         with self.connection:
             return self.cursor.execute("UPDATE `users` SET `edit_fio` = ? WHERE `user_id` = ?", (status, user_id))
-
 
     def update_inst(self, user_id, instit):
         """Обновляем статус подписки пользователя"""
