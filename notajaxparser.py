@@ -1,6 +1,6 @@
 import requests
 
-base_api_url = 'https://urfu.ru/api/ratings/departmental/1/'
+base_api_url = 'https://urfu.ru/api/ratings/departmental/35/'
 base_page_get_url = 'https://urfu.ru/'
 api_urls = {
     'Институт естественных наук и математики': '4/1/',
