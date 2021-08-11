@@ -35,6 +35,8 @@ def get_abit_status(instit, fio):
                 num = page_source[num_page + len(fio) + 2]
                 if page_source[num_page + len(fio) + 3].isdigit():
                     num += page_source[num_page + len(fio) + 3]
+                if page_source[num_page + len(fio) + 4].isdigit():
+                    num += page_source[num_page + len(fio) + 4]
                 ans = "Ваше место в рейтинге 😉: " + num
         print(ans)
         return ans
