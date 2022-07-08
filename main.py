@@ -16,7 +16,7 @@ button1 = types.KeyboardButton("Узнать своё положение в та
 edBut1 = types.KeyboardButton("Выбрать институт")
 edBut2 = types.KeyboardButton("Изменить номер")
 menu.add(button1)
-menu.row(edBut1, edBut2)
+menu.add(edBut2)
 
 
 def generate_inline_selector():
@@ -93,13 +93,13 @@ async def get_text_messages(message):
                 db.add_user(message.chat.id, message.chat.username)
             user = db.get_user(message.chat.id)
             print(user[5])
-            if user[2] is None:
-                await message.answer("Для начала выберите институт. ↙️ ")
-            elif user[3] is None:
+            # if user[2] is None:
+            #     await message.answer("Для начала выберите институт. ↙️ ")
+            if user[3] is None:
                 await message.answer("Для начала измините номер. ↘️")
             else:
                 await message.answer("🌐 Ищем вас в списках...")
-                await message.answer(parser.get_abit_status(user[2], user[3]))
+                await message.answer(parser.get_abit_status(user[3]))
         elif message.text == "Выбрать институт":
             await message.answer("На какой институт вы подали согласие?", reply_markup=inline_kb)
         else:

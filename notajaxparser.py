@@ -1,9 +1,9 @@
 import requests
 
-base_api_url = 'https://urfu.ru/api/ratings/departmental/35/'
+base_api_url = 'https://urfu.ru/api/ratings/info/28/225/'
 base_page_get_url = 'https://urfu.ru/'
 api_urls = {
-    'Институт естественных наук и математики': '4/1/',
+    'Институт естественных наук и математики': '28/225/',
     'Институт новых материалов и технологий': '17/1/',
     'Институт радиоэлектроники и информационных технологий - РтФ': '7/1/',
     'Институт строительства и архитектуры': '12/1/',
@@ -20,10 +20,10 @@ headers = {
 }
 
 
-def get_abit_status(instit, fio):
+def get_abit_status(fio):
     try:
         fio = str(fio)
-        url = requests.get(base_api_url + api_urls[instit], headers=headers).json()['url']
+        url = requests.get(base_api_url, headers=headers).json()['url']
         page_source = requests.get(base_page_get_url + url, headers=headers).content.decode()
         num_page = page_source.find(fio)
         if num_page == -1:
@@ -43,3 +43,6 @@ def get_abit_status(instit, fio):
     except Exception as e:
         print('EROROR', e)
         return "Произошла ошибка сервера 😰"
+
+if __name__ == '__main__':
+    get_abit_status('236490')
